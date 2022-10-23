@@ -10,6 +10,7 @@ export(Resource) var moveData
 
 var velocity = Vector2.ZERO
 var state = MOVE
+var double_jump = true
 
 onready var aSprite = $AnimatedSprite
 onready var ladderCheck = $LadderCheck
@@ -46,12 +47,20 @@ func move_state(input):
 			aSprite.offset.x = -1
 
 	if is_on_floor():
+#		change to double_jump = moveData.DOUBLE_JUMPS
+		double_jump = true
 		if Input.is_action_just_pressed("ui_up"):
 			velocity.y = moveData.JUMP_FORCE
 	else:
 		aSprite.animation = "JumpUp"
 		if Input.is_action_just_released("ui_up") and velocity.y < moveData.JUMP_RELEASE:
 			velocity.y = moveData.JUMP_RELEASE
+		
+#		for more than 1 double jump, change double_jump = true to double_jump = 1
+#		and double_jump == true to double_jump > 0 and double_jump = false tp double_jump -=1
+		if Input.is_action_just_pressed("ui_up") and double_jump == true:
+			velocity.y = moveData.JUMP_FORCE
+			double_jump = false
 
 	if velocity.y > 0:
 		if not is_on_floor():
@@ -72,7 +81,7 @@ func climb_state(input):
 	if input.length() != 0:
 		aSprite.animation = "Climb"
 
-	velocity = input * 50
+	velocity = input * moveData.CLIMB_SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 func is_on_ladder():
