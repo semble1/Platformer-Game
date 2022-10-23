@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://TileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Hazard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World.gd" type="Script" id=4]
+[ext_resource path="res://Mushroom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Ladder.tscn" type="PackedScene" id=6]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="TileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 262159, 0, 0, 262160, 0, 1, 262161, 0, 2, 393226, 0, 0, 393227, 0, 1, 393228, 0, 2, 458772, 0, 0, 458773, 0, 1, 458774, 0, 2, 524288, 0, 0, 524289, 0, 1, 524290, 0, 1, 524291, 0, 1, 524292, 0, 1, 524293, 0, 1, 524294, 0, 2, 524297, 0, 0, 524298, 0, 1, 524299, 0, 1, 524300, 0, 1, 524301, 0, 1, 524302, 0, 1, 524303, 0, 1, 524304, 0, 1, 524305, 0, 1, 524306, 0, 1, 524307, 0, 2, 589831, 0, 0, 589832, 0, 2 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 104 )
+z_index = 10
+
+[node name="Hazard" parent="." instance=ExtResource( 3 )]
+position = Vector2( 120, 144 )
+
+[node name="Hazard2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 136, 144 )
+
+[node name="Mushroom" parent="." instance=ExtResource( 5 )]
+position = Vector2( 168, 128 )
+z_index = 2
+
+[node name="Ladder" parent="." instance=ExtResource( 6 )]
+position = Vector2( 232, 80 )
+
+[node name="Ladder2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 232, 96 )
+
+[node name="Ladder3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 232, 112 )
+
+[node name="Ladder4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 232, 128 )
