@@ -6,14 +6,16 @@ enum {
 	CLIMB
 }
 
-export(Resource) var moveData
+export(Resource) var moveData = preload("res://DefaultPlayerMovement.tres") as PlayerMovement
 
 var velocity = Vector2.ZERO
 var state = MOVE
 var double_jump = true
+var buffered_jump = false
 
-onready var aSprite = $AnimatedSprite
-onready var ladderCheck = $LadderCheck
+onready var aSprite: = $AnimatedSprite
+onready var ladderCheck: = $LadderCheck
+onready var jumpBufferTimer: = $JumpBufferTimer
 
 func _ready():
 	aSprite.frames = load("res://PlayerDefault.tres")
@@ -49,23 +51,28 @@ func move_state(input):
 	if is_on_floor():
 #		change to double_jump = moveData.DOUBLE_JUMPS
 		double_jump = true
-		if Input.is_action_just_pressed("ui_up"):
+		if Input.is_action_just_pressed("ui_up") or buffered_jump:
 			velocity.y = moveData.JUMP_FORCE
+			buffered_jump = false
 	else:
 		aSprite.animation = "JumpUp"
 		if Input.is_action_just_released("ui_up") and velocity.y < moveData.JUMP_RELEASE:
 			velocity.y = moveData.JUMP_RELEASE
-		
+
 #		for more than 1 double jump, change double_jump = true to double_jump = 1
 #		and double_jump == true to double_jump > 0 and double_jump = false tp double_jump -=1
 		if Input.is_action_just_pressed("ui_up") and double_jump == true:
 			velocity.y = moveData.JUMP_FORCE
 			double_jump = false
 
-	if velocity.y > 0:
-		if not is_on_floor():
-			aSprite.animation = "JumpDown"
-		velocity.y += moveData.ADDED_GRAVITY
+		if Input.is_action_just_pressed("ui_up"):
+			buffered_jump = true
+			jumpBufferTimer.start()
+
+		if velocity.y > 0:
+			if not is_on_floor():
+				aSprite.animation = "JumpDown"
+			velocity.y += moveData.ADDED_GRAVITY
 
 	var was_in_air = not is_on_floor()
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -99,3 +106,7 @@ func apply_friction():
 
 func apply_acceleration(amount):
 	velocity.x = move_toward(velocity.x, moveData.MAX_SPEED * amount, moveData.ACCELERATION)
+
+
+func _on_JumpBufferTimer_timeout():
+	buffered_jump = false
