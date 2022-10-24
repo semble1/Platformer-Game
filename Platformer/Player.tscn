@@ -15,6 +15,7 @@ moveData = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "Idle"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -35,4 +36,8 @@ collide_with_bodies = false
 wait_time = 0.1
 one_shot = true
 
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.35
+
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_JumpBufferTimer_timeout"]
+[connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_CoyoteJumpTimer_timeout"]
