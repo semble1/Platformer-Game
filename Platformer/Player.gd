@@ -123,7 +123,6 @@ func input_jump():
 			buffered_jump = false
 
 func is_on_ladder():
-	double_jump = true
 	if not ladderCheck.is_colliding(): return false
 	var collider = ladderCheck.get_collider()
 	if not collider is Ladder: return false

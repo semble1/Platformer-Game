@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,17 @@
 [ext_resource path="res://World.gd" type="Script" id=4]
 [ext_resource path="res://Mushroom.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Ladder.tscn" type="PackedScene" id=6]
+[ext_resource path="res://FlyEnemy.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 40, 40, 0, 0, 0, 0, -40, 40, 0, 0, 0, 0, -40, 0, 0, 0, 0, 0, 40, 0 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0 )
+}
 
 [node name="World" type="Node2D"]
 script = ExtResource( 4 )
@@ -38,3 +49,14 @@ position = Vector2( 232, 112 )
 
 [node name="Ladder4" parent="." instance=ExtResource( 6 )]
 position = Vector2( 232, 128 )
+
+[node name="FlyEnemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( 256, 48 )
+curve = SubResource( 1 )
+speed = 1
+
+[node name="FlyEnemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 160, 88 )
+curve = SubResource( 2 )
+animation_type = 1
+speed = 1
