@@ -55,7 +55,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -8 )
 frames = SubResource( 9 )
 animation = "Walking"
-frame = 4
+frame = 6
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

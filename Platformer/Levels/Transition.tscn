@@ -27,7 +27,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, -320.0 ]
+"values": [ 0, -320.0 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -44,6 +44,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 320.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:margin_right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 16.0, 16.0 ]
 }
 
 [sub_resource type="Animation" id=3]
