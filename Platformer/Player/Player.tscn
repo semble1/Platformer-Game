@@ -17,7 +17,6 @@ moveData = ExtResource( 1 )
 position = Vector2( 0, -8 )
 frames = ExtResource( 2 )
 animation = "Idle"
-frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
