@@ -3,22 +3,22 @@
 [ext_resource path="res://halloweenpack.png" type="Texture" id=1]
 [ext_resource path="res://Checkpoint.gd" type="Script" id=2]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 16, 32, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 32, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "Checked",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
 "name": "Unchecked",
 "speed": 5.0
@@ -34,6 +34,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -8 )
 frames = SubResource( 3 )
 animation = "Unchecked"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -11 )
