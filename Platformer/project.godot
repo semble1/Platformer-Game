@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Ladder",
 "language": "GDScript",
-"path": "res://Ladder.gd"
+"path": "res://World/Ladder.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player.gd"
+"path": "res://Player/Player.gd"
 }, {
 "base": "Resource",
 "class": "PlayerMovement",
 "language": "GDScript",
-"path": "res://PlayerMovement.gd"
+"path": "res://Player/PlayerMovement.gd"
 } ]
 _global_script_class_icons={
 "Ladder": "",
@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Platformer"
-run/main_scene="res://World.tscn"
+run/main_scene="res://Levels/Level1.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -48,6 +48,10 @@ window/size/height=180
 window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="2d"
+
+[global]
+
+fps=false
 
 [gui]
 

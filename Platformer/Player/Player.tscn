@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/DefaultPlayerMovement.tres" type="Resource" id=1]
+[ext_resource path="res://Player/PlayerDefault.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Player/Player.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 4.5, 7 )
+
+[node name="Player" type="KinematicBody2D"]
+z_index = 10
+collision_layer = 2
+script = ExtResource( 3 )
+moveData = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -8 )
+frames = ExtResource( 2 )
+animation = "Idle"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.5, -7 )
+shape = SubResource( 6 )
+
+[node name="LadderCheck" type="RayCast2D" parent="."]
+position = Vector2( 0, -13 )
+enabled = true
+cast_to = Vector2( 0, 18 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.35
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+position = Vector2( 0, -8 )
+
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_JumpBufferTimer_timeout"]
+[connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_CoyoteJumpTimer_timeout"]
