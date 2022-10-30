@@ -7,4 +7,9 @@ func _on_Door_body_entered(body):
 		return
 	if next_level.empty():
 		return
+	Transition.exit_level_transition()
+	get_tree().paused = true
+	yield(Transition, "transition_complete")
+	Transition.enter_level_transition()
+	get_tree().paused = false
 	get_tree().change_scene(next_level)
