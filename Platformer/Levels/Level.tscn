@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Level.gd" type="Script" id=2]
+[ext_resource path="res://Assets/bg_1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/bg_0.png" type="Texture" id=4]
+[ext_resource path="res://Assets/bg_2.png" type="Texture" id=5]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,3 +15,32 @@ script = ExtResource( 2 )
 current = true
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 510, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 256, 56 )
+scale = Vector2( 2.13333, 2.5 )
+texture = ExtResource( 4 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 510, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 256, 56 )
+scale = Vector2( 2.13333, 2.5 )
+texture = ExtResource( 3 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 2, 1 )
+motion_mirroring = Vector2( 510, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 256, 108 )
+scale = Vector2( 2.13333, 1.85 )
+texture = ExtResource( 5 )
