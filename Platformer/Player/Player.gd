@@ -20,9 +20,12 @@ onready var ladderCheck: = $LadderCheck
 onready var jumpBufferTimer: = $JumpBufferTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
 onready var remoteTransform2D: = $RemoteTransform2D
+onready var animationPlayer = $AnimationPlayer
+onready var attackAnimation = $Attack
 
 func _ready():
 	aSprite.frames = load("res://Player/PlayerDefault.tres")
+	attackAnimation.visible = false
 
 func _physics_process(delta):
 	var input = Vector2.ZERO
@@ -32,6 +35,8 @@ func _physics_process(delta):
 	match state:
 		MOVE: move_state(input, delta)
 		CLIMB: climb_state(input)
+	
+	player_attack()
 
 func move_state(input, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
@@ -89,6 +94,14 @@ func connect_camera(camera):
 	var camera_path = camera.get_path()
 	remoteTransform2D.remote_path = camera_path
 
+func input_jump():
+	if on_door:
+		return
+	if Input.is_action_just_pressed("ui_up") or buffered_jump:
+		SoundPlayer.play_sound(SoundPlayer.JUMP)
+		velocity.y = moveData.JUMP_FORCE
+		buffered_jump = false
+
 func input_jump_release():
 	if Input.is_action_just_released("ui_up") and velocity.y < moveData.JUMP_RELEASE:
 		velocity.y = moveData.JUMP_RELEASE
@@ -122,26 +135,26 @@ func horizontal_move(input, delta):
 		if input.x > 0:
 			aSprite.flip_h = false
 			aSprite.offset.x = 0
+			attackAnimation.flip_h = false
+			attackAnimation.offset.x = 0
 		elif input.x < 0:
 			aSprite.flip_h = true
 			aSprite.offset.x = -1
+			attackAnimation.flip_h = true
+			attackAnimation.offset.x = -32
 
 func can_jump():
 	return is_on_floor() or coyote_jump
-
-func input_jump():
-	if on_door:
-		return
-	if Input.is_action_just_pressed("ui_up") or buffered_jump:
-		SoundPlayer.play_sound(SoundPlayer.JUMP)
-		velocity.y = moveData.JUMP_FORCE
-		buffered_jump = false
 
 func is_on_ladder():
 	if not ladderCheck.is_colliding(): return false
 	var collider = ladderCheck.get_collider()
 	if not collider is Ladder: return false
 	return true
+
+func player_attack():
+	if Input.is_action_just_pressed("ui_accept"):
+		animationPlayer.play("Attack")
 
 func apply_gravity(delta):
 	velocity.y += moveData.GRAVITY * delta
