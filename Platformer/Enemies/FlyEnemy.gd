@@ -30,3 +30,6 @@ func play_animation(animPlayer):
 	match animation_type:
 		ANIMATION_TYPE.LOOP: animPlayer.play("MoveAlongPathLoop")
 		ANIMATION_TYPE.BOUNCE: animPlayer.play("MoveAlongPathBounce")
+
+func _on_Hurtbox_area_entered(area):
+	queue_free()

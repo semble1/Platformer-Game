@@ -136,12 +136,12 @@ func horizontal_move(input, delta):
 			aSprite.flip_h = false
 			aSprite.offset.x = 0
 			attackAnimation.flip_h = false
-			attackAnimation.offset.x = 0
+			attackAnimation.position.x = 16
 		elif input.x < 0:
 			aSprite.flip_h = true
 			aSprite.offset.x = -1
 			attackAnimation.flip_h = true
-			attackAnimation.offset.x = -32
+			attackAnimation.position.x = -16
 
 func can_jump():
 	return is_on_floor() or coyote_jump

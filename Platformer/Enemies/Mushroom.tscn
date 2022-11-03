@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/mushroom_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Mushroom.gd" type="Script" id=2]
 [ext_resource path="res://Hitboxes/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Hitboxes/Hurtbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -47,15 +48,18 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 4.5, 6.5 )
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 4.5, 6.5 )
+
 [node name="Mushroom" type="KinematicBody2D"]
-collision_layer = 2
+collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 frames = SubResource( 9 )
 animation = "Walking"
-frame = 6
+frame = 3
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -71,3 +75,14 @@ cast_to = Vector2( 0, 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( 0.5, -6.5 )
 shape = SubResource( 10 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+script = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0.5, -6.5 )
+shape = SubResource( 11 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

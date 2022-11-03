@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/DefaultPlayerMovement.tres" type="Resource" id=1]
 [ext_resource path="res://Player/PlayerDefault.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=3]
 [ext_resource path="res://Assets/herochar_spritesheet(new).png" type="Texture" id=4]
+[ext_resource path="res://Hitboxes/Hitbox.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 4.5, 7 )
@@ -31,6 +32,9 @@ animations = [ {
 "name": "Attack",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 8.5, 5.5 )
 
 [sub_resource type="Animation" id=12]
 resource_name = "Attack"
@@ -83,6 +87,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0, 3 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Attack/Hitbox/AttackCollision:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.0401855, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -134,6 +150,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ "Attack" ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Attack/Hitbox/AttackCollision:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 z_index = 10
@@ -173,6 +201,14 @@ position = Vector2( 16, -8 )
 frames = SubResource( 11 )
 animation = "Attack"
 playing = true
+
+[node name="Hitbox" parent="Attack" instance=ExtResource( 5 )]
+collision_mask = 4
+
+[node name="AttackCollision" type="CollisionShape2D" parent="Attack/Hitbox"]
+position = Vector2( -1.5, 2.5 )
+shape = SubResource( 14 )
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 12 )

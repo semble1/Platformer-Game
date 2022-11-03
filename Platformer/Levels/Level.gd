@@ -13,7 +13,11 @@ func _ready():
 	player.connect_camera(camera)
 	player_spawn_location = player.global_position
 	Events.connect("player_died", self, "_on_player_died")
+	Events.connect("enemy_died", self, "_on_enemy_died")
 	Events.connect("pass_checkpoint", self, "_on_pass_checkpoint")
+
+func _on_enemy_died():
+	pass
 
 func _on_player_died():
 	timer.start(1.0)

@@ -15,3 +15,6 @@ func _physics_process(delta):
 	
 	velocity = direction * 30
 	move_and_slide(velocity, Vector2.UP)
+
+func _on_Hurtbox_area_entered(area):
+	queue_free()
